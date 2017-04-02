@@ -1,0 +1,16 @@
+From StackExchange "how-to-make-the-pdfs-produced-by-pdflatex-smaller"
+
+A common approach is to let Ghostscript (gs) optimize and compress the PDF after it has been created with pdflatex.
+
+Ghostscript is installed by most Linux distributions and easily available for other platforms (Windows as binaries, MacOS via MacPorts). In fact, almost all size-optimizing tools for PDF (save for Acrobat) you can find on the internet, internally use Ghostscript -- so you can as well call it directly.
+
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=foo-compressed.pdf foo.pdf
+
+The level of compression is adjusted by the -dPDFSETTINGS switch:
+
+-dPDFSETTINGS=/screen   (screen-view-only quality, 72 dpi images)
+-dPDFSETTINGS=/ebook    (low quality, 150 dpi images)
+-dPDFSETTINGS=/printer  (high quality, 300 dpi images)
+-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
+-dPDFSETTINGS=/default  (almost identical to /screen)
+

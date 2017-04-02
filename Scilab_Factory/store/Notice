@@ -1,0 +1,12 @@
+Notices for coding, Huangrui Mo
+
+a) when testing code, should use multiple data files with different contents and dimensions together, to test the data interference between cases.
+
+b) when using matrix and list insertion to storage data in "for" environment, must initialize the matrix or list to empty before using "for" and storage data, to prevent the data interference between cases with different dimensions. Such as:
+
+Perturbation=[];
+Nth_Octave_Core=list();
+for N...
+    Perturbation(:,N)=...
+    Nth_Octave_Core(1)(N,:)=...
+end

@@ -1,0 +1,64 @@
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section*{}% Backmatter
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%%
+%% >>> Bibliography
+%%
+%%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\begin{frame}[allowframebreaks]
+%    \frametitle{}
+%    \tiny
+%    \printbibliography
+%\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%%
+%% >>> The End Page
+%%
+\subsection*{}% the end page.
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+{
+    \logo{\includegraphics[height=0.10\textwidth]{logo}}
+    \begin{frame}
+        \begin{center}
+            {\Huge \textcolor{black}{Thanks for your attention!}}
+        \end{center}
+    \end{frame}
+}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%%
+%% >>> Appendix
+%%
+\appendix% begin appendix
+\newcounter{finalframe} % define a new counter
+\setcounter{finalframe}{\value{framenumber}} % save regular slides counter
+\section{\appendixname}% the end page.
+\frame{\tableofcontents}% outline for appendix
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Additional Material}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+    \frametitle{Further Reading}%
+
+    \begin{itemize}
+        \item The Wikibooks
+        \item Beamer's User Guide
+    \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% proof details
+\againframe<2>{mytheorem}
+%% zoom figure
+\againframe<2->[plain]{Zooms}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile,label=Wing_B,plain]
+    %\frametitle{Zooming Figure}
+    \begin{figure}
+        \centering
+        \hyperlink{Wing_A}{\includegraphics[width=\textwidth]{NLAS_Validation}}
+        %   \caption*{{\normalsize Model Geometry}}
+    \end{figure}
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\setcounter{framenumber}{\value{finalframe}} % rectify the slides counter
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

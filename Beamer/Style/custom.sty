@@ -1,0 +1,177 @@
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%***************************** Version Information ********************************
+%%
+%% this is the "custom.sty" package used for configure document styles
+%% Copyright (C) Huangrui Mo <huangrui.mo@gmail.com>
+%% This is free software: you can redistribute it and/or modify it
+%% under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{custom}
+[2014/10/01 v0.1 custom 
+macros package]
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%******************************* Declare Options **********************************
+%%
+%% end-user parameters, each option is declared by one declare option command
+\newif\ifCUSTOM@shownote \CUSTOM@shownotefalse
+\newif\ifCUSTOM@showonlynote \CUSTOM@showonlynotefalse
+\DeclareOption{showonlynote}{% show note pages only
+    \CUSTOM@shownotetrue%
+    \CUSTOM@showonlynotetrue%
+}
+\newif\ifCUSTOM@showsecnote \CUSTOM@showsecnotefalse
+\DeclareOption{showsecnote}{% show note pages on second screen
+    \CUSTOM@shownotetrue%
+    \CUSTOM@showsecnotetrue%
+}
+\DeclareOption*{% handle non-implemented options
+    \PackageWarning{custom}{Unknown option '\CurrentOption'}%
+}
+%% terminates all options processing
+\ProcessOptions\relax
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%************************** User Defined Command **********************************
+%%
+%%% >>> Notice
+%% 
+%% -- \newcommand: defines a new command, makes an error if already defined
+%% -- \renewcommand: redefines a predefined command, makes an error if not yet defined
+%% -- \providecommand: defines a new command, if already defined, keep old definition
+%% -- \def: define a command whether new or predefined, equivalent to
+%%          \providecommand{name}{}%
+%%          \renewcommand{name}[number of arguments][default value]{definition}
+%%
+%%% >>> Math functions
+%%
+%% International standard layout rules (from isomath package)
+%% -- The overall rule is that symbols representing math quantities or variables should
+%%    be italicised, symbols representing units or labels are unitalicised (roman).
+%% -- Symbols for vectors and matrices are bold italic, symbols for tensors are 
+%%    sans-serif bold italic.
+%% -- The above rules apply equally to letter symbols from the Greek and 
+%%    the Latin alphabet.
+%% -- More information may be found in <<The LaTeX Mathematics Companion>>
+%% However, math typefaces vary from field to field. To keep consistent typography
+%% and easy adaption, it it always best to create a corresponding command for 
+%% variables in each math category.  
+%\providecommand{\Scalar}[1]{#1}% Scalar is the normal math typeset, italic
+\providecommand{\Vector}[1]{\boldsymbol{#1}}% General vectors in bold italic
+%\renewcommand{\vec}[1]{\Vector{#1}}% redefine predefined vector if needed
+\providecommand{\unitVector}[1]{\boldsymbol{\mathbf{#1}}}% Unit vectors in bold roman
+\providecommand{\Tensor}[1]{\boldsymbol{\mathsf{#1}}}% Tensor in sans-serif bold italic
+\providecommand{\unitTensor}[1]{\boldsymbol{{\mathsf{#1}}}}% Identity tensor in sans-serif bold
+\providecommand{\Matrix}[1]{\boldsymbol{\mathbf{#1}}}% Matrix in bold roman
+\providecommand{\unitMatrix}[1]{\boldsymbol{\mathbf{#1}}}% Identity matrix in bold roman
+\providecommand{\Unit}[1]{\,\mathrm{#1}}% Units in roman
+\providecommand{\Const}[1]{\mathrm{#1}}% Math constants, functions
+\providecommand{\Set}[1]{\mathbb{#1}}% Special sets (e.g. real numbers) in blackboard bold
+\providecommand{\Div}{\operatorname{div}}% divergence operator
+\providecommand{\Order}{\operatorname{O}}% order operator
+\providecommand{\Trace}{\operatorname{tr}}% trace operator
+\providecommand{\Diag}{\operatorname{diag}}% diagonal
+\providecommand{\Def}{\operatorname{def}}% define
+\providecommand{\Max}{\operatorname{max}}% maximum
+\providecommand{\Min}{\operatorname{min}}% minimum
+\providecommand{\Loptr}{\operatorname{\mathcal{L}}}% spatial operator
+\providecommand{\Toptr}{\operatorname{\mathcal{LL}}}% temporal operator
+\providecommand{\Soptr}{\operatorname{\mathcal{S}}}% solution operator
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%**************************** User Configuration **********************************
+%%
+%%
+%%% >>> Highlight
+%%
+% Make the item show in different color when in different state,
+% use: \begin{itemize}\hilite<1> \item ...\hilite<2> \item...\end{itemize}
+\def\hilite<#1>{\temporal<#1>{\color{gray}}{\color{blue}}{\color{blue!25}}}
+%%
+%%% >>> show note pages
+%%
+%% A note is text that is intended as a reminder to yourself of what you should say or
+%% should keep in mind when presenting a slide.
+\ifCUSTOM@shownote% show note pages
+%% Configure the appearence of note page
+%\setbeamertemplate{note page}[default]% [default][compress][plain]
+%\setbeamerfont{note page}{size=\small}
+%\setbeamercolor{note page}{bg=white}
+%% Include notes in the output file. Normal slides are also included and the note pages are
+%% interleaved with them.
+%\setbeameroption{show notes}
+%% When this option is given, a two screen version of your talk is created.
+%% \setbeameroption{show notes on second screen=[location]}, location: left, bottom, or top.
+\ifCUSTOM@showsecnote% show note pages on second screen
+    \setbeameroption{show notes on second screen=right}
+\fi
+%% Include only the notes in the output file and suppresses all frames:
+\ifCUSTOM@showonlynote% show note pages only
+    \setbeameroption{show only notes}
+\fi
+%% To fix the problem with the longer lines in the notes environment as they
+%% seems to spill out of the right end of the page without formatting correctly.
+\defbeamertemplate{note page}{infolines}
+{%
+  {%
+    \scriptsize
+    \usebeamerfont{note title}\usebeamercolor[fg]{note title}%
+    \ifbeamercolorempty[bg]{note title}{}{%
+      \insertvrule{.25\paperheight}{note title.bg}%
+      \vskip-.25\paperheight%
+      \nointerlineskip%
+    }%
+    \vbox{
+      \hfill\insertslideintonotes{0.25}\hskip-\Gm@rmargin\hskip0pt%
+      \vskip-0.25\paperheight%
+      \nointerlineskip
+      \begin{pgfpicture}{0cm}{0cm}{0cm}{0cm}
+        \begin{pgflowlevelscope}{\pgftransformrotate{90}}
+          {\pgftransformshift{\pgfpoint{-2cm}{0.2cm}}%
+          \pgftext[base,left]{\usebeamerfont{note date}\usebeamercolor[fg]{note date}\the\year-\ifnum\month<10\relax0\fi\the\month-\ifnum\day<10\relax0\fi\the\day}}
+        \end{pgflowlevelscope}
+      \end{pgfpicture}}
+    \nointerlineskip
+    \vbox to .25\paperheight{\vskip0.5em
+      \hbox{\insertshorttitle[width=8cm]}%
+      \setbox\beamer@tempbox=\hbox{\insertsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertsubsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip17.4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsubsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertshortframetitle}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip30.8pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\insertshortframetitle[width=7cm]}\fi%
+      }%
+      \vfil}%
+  }%
+  \ifbeamercolorempty[bg]{note page}{}{%
+    \nointerlineskip%
+    \insertvrule{.75\paperheight}{note page.bg}%
+    \vskip-.75\paperheight%
+  }%
+  \vskip.25em
+  \nointerlineskip
+  \begin{minipage}{\textwidth} % this is an addition
+  \scriptsize
+  \smallskip
+  \insertnote
+  \end{minipage}               % this is an addition
+}
+%%
+\setbeamertemplate{note page}[infolines]
+\fi
+%%%%% --------------------------------------------------------------------------------
+\endinput
+%% End of file
+%%%%% --------------------------------------------------------------------------------

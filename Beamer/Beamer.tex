@@ -1,0 +1,353 @@
+%%%%% --------------------------------------------------------------------------------
+%%
+%%                               Beamer Theme
+%%
+%%%%% --------------------------------------------------------------------------------
+%% Copyright (C) Huangrui Mo <huangrui.mo@gmail.com>
+%% This is free software: you can redistribute it and/or modify it
+%% under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%************************* Beamer Class Declaration *******************************
+%%
+\documentclass[compress,table,xcolor={usenames,dvipsnames}]{beamer}
+%% Multiple Options:
+%% [<t|c|b>] % vertical alignment for silde content, vertically centerred is default
+%% [<slidestop|slidescentered>] % set frame titles position
+%% [compress] % reduce the navigate bars
+%% [<red|blue|brown|blackandwhite>] % set navigate bar color
+%% [<11pt|12pt|17pt>] % set font size, 11pt is default
+%% [table] % support tables
+%% [aspectratio=1610] % set aspect ratio to 16:10, and frame size to 160mm by 100mm
+%% [aspectratio=MN] % set aspect ratio to M:N, and frame size to 10*M mm by 10*N mm
+%% [xcolor={usenames,dvipsnames}] % issue options to xcolor via a beamer-option.
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%************************* Command Define and Settings ****************************
+\usepackage[tikz,table]{commons}% common settings
+%% Multiple Options:
+%% [CJK] % support Chinese environment
+%% [tikz] % support tikz for graphics
+%% [table] % enable some table packages
+%% [list] % verbatim environments
+%% [handout] % enable handout output
+\usepackage{custom}% user defined commands and settings
+%% Multiple Options:
+%% [showonlynote] % show note pages only
+%% [showsecnote] % show note pages on second screen
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%**************************** Themes Setting **************************************
+%%
+%%% >>> Global Themes
+%%
+\usetheme{CambridgeUS}
+%% Options:
+%% [<Szeged|Singapore|Madrid|CambridgeUS|...>]
+%% It is the complete theme in the sense that they control just about every aspect
+%% of a slide's appearance. Think of it as major theme.
+%% The Theme Matrix (https://www.hartwork.org/beamer-theme-matrix/) contains the
+%% various theme and color combinations included with beamer.
+%%
+%%% >>> Outer Themes
+%%
+%\useoutertheme{}
+%% Options:
+%% [<default|infolines|miniframes|smoothbars|sidebar|split|shadow|tree|smoothtree>]
+%% An outer theme dictates (roughly) the overall layout of frames. It specifies where
+%% any navigational elements should go (like a mini table of contents or navigational
+%% mini frames) and what they should look like. Typically, an outer theme specifies
+%% how the following elements are rendered:
+%% - The headline and footline.
+%% - The sidebars.
+%% - The logo.
+%% - The frame title.
+%% The Beamer User Guide explains each theme with examples.
+%%
+%% *** Miniframes
+\useoutertheme[%
+%   footline=empty, % suppressed the footline (default).
+%   footline=authorinstitute, % shows the author's name and the institute in the footline.
+%   footline=authortitle, % shows the author's name and the title in the footline.
+%   footline=institutetitle, % shows the institute and the title in the footline.
+%   footline=authorinstitutetitle, % shows all three in the footline.
+    subsection=false, % shows or suppresses line showing the subsection in the headline.
+    ]{miniframes}
+%%
+%% *** Sidebar
+%\useoutertheme[%
+%   left, % sidebar links
+%   right, % sidebar rechts
+%   hideallsubsections, % suppresses all subsections
+%   hideothersubsections, % suppresses all subsections except the current one
+%   ]{sidebar}
+%%
+%%% >>> Inner Themes
+%%
+\useinnertheme{circles}
+%% Options:
+%% [<default|circles|rectangles|rounded|inmargin>]
+%% An inner theme installs templates that dictate how the following elements are typeset:
+%% - Title and part pages.
+%% - Itemize environments.
+%% - Enumerate environments.
+%% - Description environments.
+%% - Block environments.
+%% - Theorem and proof environments.
+%% - Figures and tables.
+%% - Footnotes.
+%% - Bibliography entries.
+%%
+%%% >>> Color Themes
+%%
+\usecolortheme{seagull}
+%% Options:
+%% [<seahorse|seagull|beaver|rose|dove|lily|orchid|crane|beetle|fly>]
+%% Control the colors of title, frame title, itemization bullets,
+%% and many other elements of a slide show.
+%% More detailed configure:\setbeamercolor{beamer_element}{color} for
+%% of Beamer elements, e.g.color setup
+%\setbeamercolor{title}{fg=red!80!black,bg=red!20!white}
+%\setbeamercolor{frametitle}{fg=blue,bg=yellow}
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%******************************* Template Configure *******************************
+%%
+%%% >>> Set Templates
+%%
+%% As a user of the beamer class you typically do not 'use' or 'invoke'
+%% templates yourself, directly. For example, the frame title template
+%% is automatically invoked by beamer somewhere deep inside the frame
+%% typesetting process. The same is true of most other templates.
+%% However, if, for whatever reason, you wish to invoke a template
+%% yourself, you can use the following command.
+%%\setbeamertemplate{some beamer element}{your definition for this template}
+%%
+%% *** The Headline and Footline
+%\setbeamertemplate{headline}[infolines theme]
+%\setbeamertemplate{footline}[page number]
+%% Options: {},[default],[infolines theme],[miniframes theme],[frame number],
+%%          [page number],[text line]{ text },...
+%% Example for redefine the footline:
+%%
+%%% First define some "beamer color" entries:
+%\setbeamercolor{myentry1}{fg=black,bg=red!20}
+%\setbeamercolor{myentry2}{fg=black,bg=red!30}
+%\setbeamercolor{myentry3}{fg=black,bg=red!40}
+%%% Syntax for \begin{beamercolorbox}[options]{beamer color} ... \end{beamercolorbox}.
+%%% footline:
+%\setbeamertemplate{footline}{
+%  \leavevmode%
+%  \hbox{%
+%  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{myentry1}%
+%%    \usebeamerfont{author in head/foot}\insertshortauthor
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{myentry2}%
+%%    \usebeamerfont{title in head/foot}\insertshorttitle
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{myentry3}%
+%%    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+%    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+%  \end{beamercolorbox}}%
+%  \vskip0pt%
+%}
+%%% headline:
+%\setbeamertemplate{headline}{
+%  \leavevmode%
+%  \hbox{%
+%  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,right]{myentry1}%
+%    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,left]{myentry3}%
+%    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+%  \end{beamercolorbox}}%
+%  \vskip0pt%
+%}
+%% Change the footer/footline of a single frame in Beamer: use {} to confine effect domain.
+%% The \leavevmode ensures that the vertical mode is ended and horizontal mode is entered. 
+%% In vertical mode, TeX stacks horizontal boxes vertically, whereas in horizontal mode, 
+%% they are taken as part of the text line. Use \leavevmode for all macros which could be 
+%% used at the begin of the paragraph and add horizontal boxes by themselves.
+%%
+%% *** The Outline Setting
+%\AtBeginSection[] % [<AtBeginSection|AtBeginSubsection>]
+%{
+%  \begin{frame}<beamer>[plain]
+%    \frametitle{Outline}
+%    {
+%     \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/show/shaded]
+%    }
+%  \end{frame}
+%}
+%% - sectionstyle=<style for current section>/<style for other sections>
+%% - subsectionstyle=<style for current subsection>/<style for other
+%%   subsections in current section>/<style for subsections in other sections>
+%% - Allowed <styles> are show, shaded, and hide.
+%% Other Options:
+%% - currentsection, equal to: sectionstyle=show/shaded,subsectionstyle=show/show/shaded
+%% - currentsubsection, equal to: subsectionstyle=show/shaded.
+%% - firstsection=<section number> specifies which section should be numbered as section “1.”
+%%   This is useful if you have a first section (like an overview section) that should not
+%%   receive a number.
+%% - hideallsubsections, equal to: subsectionstyle=hide.
+%% - pausesections, causes a \pause command to be issued before each section.
+%%   This is useful if you wish to show the table of contents in an incremental way.
+%%
+%% *** The Navigation Symbols
+\setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols.
+%\setbeamertemplate{navigation symbols}[only frame symbol] % only for navigating frames.
+%%
+%% *** The Frame Title
+%\setbeamertemplate{frametitle}[default][left] % left, center, right
+%%
+%% *** The Background
+%\setbeamertemplate{background canvas}[default]
+%\setbeamertemplate{background canvas}[vertical shading][bottom=red!20,top=yellow!30]
+%\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth,height=\paperheight]{alps.jpg}}
+%% The aspect ratio of a Beamer slide is 4:3 therefore it's best
+%% if your background image has the same aspect ratio. Otherwise
+%% your image will be distorted when it's stretched to cover the
+%% slide from edge to edge.
+%% To limit the background setting to a single slide, enclose the
+% \setbeamertemplate{background canvas}{...} command in braces,
+%% as in:
+%%
+%{ % brace to limit the scope of \setbeamertemplate
+%\setbeamertemplate{navigation symbols}{} % optionally hide navigation buttons
+%\setbeamertemplate{background canvas}{\includegraphics
+%	[width=\paperwidth,height=\paperheight]{alps.jpg}}
+%\begin{frame}[plain]
+%...
+%\end{frame}
+%} % closing brace
+%%
+%% *** Margin Sizes
+%\setbeamersize{text margin left=2em,text margin right=2em}
+%%
+%% *** Itemizations, Enumerations, and Descriptions
+%\setbeamertemplate{itemize items}[triangle]
+%% Options: [<circle|triangle|square|ball>].
+%\setbeamertemplate{enumerate items}[default]
+%% Options:
+%% [default] % numbered
+%% [sections numbered] % section numbered, subsections are not numbered.
+%% [subsections numbered] % subsections are numbered, but not the sections.
+%% [circle] % numbered circles before section, not subsection.
+%% [square] % numbered squares before section. unnumbered squares before subsections.
+%% [ball] % similar to square, but use balls.
+%% [ball unnumbered] % similar to ball, except that no numbering is used.
+%%
+%% *** Block Environments
+%\setbeamertemplate{blocks}[rounded][shadow=true]
+%% Types:
+%% "theorem", "corollary", "definition" in structure color frame.
+%% "examples" in green color frame.
+%% "block" in structure color frame with your own title.
+%% "alertblock" in alert color frame with your own title.
+%%
+%% *** Theorem Environments
+%\setbeamertemplate{theorems}[normal font]
+%% Options: [<default|normal font|numbered|ams style>].
+%%
+%% *** Figures and Tables
+%\setbeamertemplate{caption}[default]
+%% Options:
+%% [default] % typesets the caption name (a word like 'Figure' or 'Abbildung' or 'Table')
+%% [numbered] % adds the figure or table number to the caption.
+%% [caption name own line].
+%%
+%% *** Adding Sections and Subsections
+%\setbeamertemplate{sections/subsections in toc}[square]
+%% Options: [<default|sections numbered|subsections numbered>]
+%%          [<circle|square|ball|ball unnumbered>]
+%%
+%% *** Bibliography
+\setbeamertemplate{bibliography item}{} % remove the icon
+%%
+%%% >>> Set Fonts
+%%
+%% Rules:
+%\setbeamerfont{some beamer element}{size=\large}
+%% Add a star to the command to first “reset” the font.
+%% Options:
+%% parent=structure,size=\large,series=\bfseries,shape=\itshape,family=\sffamily.
+%% Explains: there are three familis of font
+%% family: \rmfamily(serif) or \sffamily(sans serif), or \ttfamily(monospace).
+%% Each family has its own font characteristics, i.e., font properties.
+%% shapes: \itshape, \slshape, \scshape, or \upshape.
+%% series(light, bold,...): \bfseries, \mdseries.
+%%
+%% *** Structure Font
+%\setbeamerfont{structure}{}
+%\setbeamerfont{tiny structure}{size=\tiny}
+%%
+%% *** Normal Font
+%\setbeamerfont{normal text}{parent=structure,size=\small} % ignored currently
+%\setbeamerfont{alerted text}{}
+%\setbeamerfont{example text}{}
+%%
+%% *** Projected Text Font
+%\setbeamerfont{projected text}{parent={tiny structure}}
+%%
+%% *** Titlepage Font
+%\setbeamerfont{title}{parent=structure, size=\large} % shape=\itshape,family=\rmfamily
+%\setbeamerfont{title in head/foot}{parent=title, size=\tiny}
+%\setbeamerfont{subtitle}{parent=title, size=\normalsize}
+%\setbeamerfont{author}{parent=title, size=\normalsize}
+%\setbeamerfont{author in head/foot}{parent=title, size=\tiny}
+%\setbeamerfont{institute}{parent=structure, size=\scriptsize, series=\mdseries}
+%\setbeamerfont{institute in head/foot}{parent=title, size=\tiny}
+%\setbeamerfont{date}{parent=institute}
+%\setbeamerfont{date in head/foot}{parent=title, size=\tiny}
+%%
+%% *** Frame Title Font
+\setbeamerfont{frametitle}{parent=structure,size=\large}
+%\setbeamerfont{framesubtitle}{parent=frametitle,size=\footnotesize}
+%%
+%% *** Part Fonts
+%\setbeamerfont{part name}{size=\Large}
+%\setbeamerfont{part title}{parent=title}
+%%
+%% *** Headline and Footline Font
+%\setbeamerfont{headline}{parent={tiny structure}}
+%\setbeamerfont{footline}{parent={tiny structure}}
+%%
+%% *** Caption Font
+%\setbeamerfont{caption}{size=\small}
+%\setbeamerfont{caption name}{size=\small}
+%%
+%% *** Button Font
+%\setbeamerfont{button}{size=\tiny}
+%%
+%%% >>> Transparent Effect
+%%
+%\setbeamercovered{invisible}
+%% Options:
+%% [invisible] % is the default and causes covered text to disappear.
+%% [transparent] % creates shaded instead of hidden overlays.
+%% [dynamic] % makes all covered text quite transparent, but in a dynamic way.
+%% [highly dynamic] % has the same effect as dynamic, but the effect is stronger.
+%\beamerdefaultoverlayspecification{<+->} % uncover everything in a step-wise fashion
+%%%%% --------------------------------------------------------------------------------
+%%
+%%%%******************************** Content *****************************************
+%%
+\begin{document}
+%%
+%%% >>> Front Page Info
+%%
+\input{Frontpages}%
+%%
+%%% >>> Main Content
+%%
+\input{Main_Content}%
+%%
+%%% >>> Backmatter
+%%
+%% Matters of Bibliography, Glossary, Index.
+\input{Backmatter}
+%%
+\end{document}
+%%%%% --------------------------------------------------------------------------------

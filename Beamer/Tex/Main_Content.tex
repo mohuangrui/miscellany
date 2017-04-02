@@ -1,0 +1,1313 @@
+%%%%% ----------------------- >>> Main Contents <<< --------------------------------
+%%
+\section{Why Beamer}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Why Beamer}
+
+  Pros:
+
+  \begin{itemize}
+    \item Both \textcolor{magenta}{dvips/ps2pdf} and \textcolor{magenta}{pdflatex} supports
+    \item Rich \textcolor{magenta}{overlay} and \textcolor{magenta}{transition} effects
+    \item Navigational bars and symbols
+    \item Outputs: screen, transparency, handouts, and notes
+    \item Emulation of other PDF presetation tools such as Prosper
+    \item Easy to type math
+    \item \path{WYSIWYM} (What You See Is What You Mean)
+  \end{itemize}
+
+  Cons:
+
+  \begin{itemize}
+    \item Not \path{WYSIWYG} (What You See Is What You Get)
+    \item Steep learning curve
+    \item Difficult to design a template
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Creating a Slideshow}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Examples}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{My First Slide}
+  \begin{footnotesize}
+    \begin{verbatim}
+\documentclass{beamer}
+\begin{document}
+  \begin{frame}
+    Hello World!
+  \end{frame}
+\end{document}
+    \end{verbatim}
+  \end{footnotesize}
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Titles}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Frame Titles}
+\framesubtitle{...and Subtitles}
+
+  Two ways to create titles and subtitles for a frame:
+
+  \begin{itemize}
+    \item \verb|\begin{frame}{|\emph{Frame Title}\verb|}{|\emph{Frame Subtitle}\verb|}|
+    \item \verb|\frametitle{|\emph{Frame Title}\verb|}\framesubtitle{|\emph{Frame Subtitle}\verb|}|
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Sections}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Sectioning}
+
+  Notice the sections and subsections at the top of each slide.
+
+  \begin{footnotesize}
+    \begin{itemize}
+      \item \verb|\section[|\emph{Short Section Name}\verb|]{|\emph{Long Section Name}\verb|}|
+      \item \verb|\subsection[|\emph{Short Subsection Name}\verb|]{|\emph{Long Subsection Name}\verb|}|
+    \end{itemize}
+  \end{footnotesize}
+
+  \vskip .2in
+
+  \uncover<2->{``Short names'' go into slide headers;\\
+  ``Long names'' go into outlines.}
+
+  \vskip .2in
+
+  \uncover<3->{All sections and subsections automatically added to slideshow outline!}
+
+\end{frame}
+%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Loooooong Slides}
+
+  \textsc{Beamer} does not automatically put what doesn't fit from one slide onto another slide.
+
+  \begin{itemize}
+    \item You must keep track of slide lengths yourself; or
+    \item you can use the frame option \verb|\begin{frame}[allowframebreaks]|
+  \end{itemize}
+
+  This automatically breaks up the long slide and puts the extra content onto new slides.
+
+  \bigskip
+
+  \uncover<2->{\alert<2->{\path{+}} You don't have to worry about the length of your slides.}
+
+  \uncover<3->{\alert<3->{\path{+}} Slide title is continued on each subsequent slide.}
+
+  \uncover<4->{\alert<4->{\path{-}} Most overlay options are not usable.}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Use Verbatim}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Verbatim}
+
+  \begin{tiny}
+    \begin{semiverbatim}
+      \uncover<1->{int main (void)} \uncover<1->{\{}
+      \uncover<1->{std::vector<bool> is_prime (100, true);}
+      \uncover<1->{ for (int i = 2; i < 100; i++)}
+      \uncover<2->{{ if (is_prime[i])}}
+      \uncover<2->{\{} \uncover<3->{ std::cout << i << " ";}
+      \uncover<3->{ for (int j = i; j < 100;}
+      \uncover<3->{ is_prime [j] = false, j+=i);}
+      \uncover<2->{ \}} \uncover<1->{ return 0;}
+      \uncover<1->{\}}
+    \end{semiverbatim}
+  \end{tiny}
+
+  \pause\pause\pause
+
+  \begin{block}{Using Verbatim}
+    To use any sort of verbatim text, you must declare the frame as \textsl{fragile}:\\ \verb|\begin{frame}[fragile]|\\
+    Use \verb|\path{content}|, \path{\verb |content|} or \verb|verbatim| environment.
+  \end{block}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Use Enumerate}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Enumerate}
+
+  \begin{enumerate}[A]
+    \item This is the first item.
+    \item This is the second item.
+    \item Yes, this is the third one!
+  \end{enumerate}
+
+  \vfill
+
+  \begin{footnotesize}
+    \begin{verbatim}
+\begin{enumerate}[minitemplate]
+  \item ...
+\end{enumerate}
+where minitemplate can be empty or 'A','a', 'i', 'I', '(A)', ...
+    \end{verbatim}
+  \end{footnotesize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Framed Text}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Framed Text}
+
+  \begin{theorem}
+    You can read this.
+  \end{theorem}
+
+  \begin{alertblock}{Warning}
+    You are warned!
+  \end{alertblock}
+
+  \vfill
+
+  Beamer supports predefined framed texts:
+
+  \begin{footnotesize}
+    \begin{verbatim}
+theorem, corollary, definition in structure color frame
+examples in green color frame
+block in structure color frame with your own title
+alertblock in alert color frame with your own title
+    \end{verbatim}
+  \end{footnotesize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{User-defined Framed Text}
+
+{
+  \setbeamercolor{uppercol}{fg=white,bg=green!80}%
+  \setbeamercolor{lowercol}{fg=black,bg=green!10}%
+  \begin{beamerboxesrounded}[upper=uppercol,lower=lowercol,shadow=true]{Theorem}
+    $A = B$.
+  \end{beamerboxesrounded}
+}
+
+  \vfill
+
+  Source code:
+
+  \begin{footnotesize}
+    \begin{verbatim}
+{
+\setbeamercolor{uppercol}{fg=white,bg=green!80}%
+\setbeamercolor{lowercol}{fg=black,bg=green!10}%
+\begin{beamerboxesrounded}%
+[upper=uppercol,lower=lowercol,shadow=true]{Theorem}
+  $A = B$.
+\end{beamerboxesrounded}
+}
+    \end{verbatim}
+  \end{footnotesize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Graphics}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{\path{\includegraphics{}}}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{tiny}
+        \begin{verbatim}
+\begin{columns}
+\begin{column}{.5\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Zooey1}
+\end{column}
+\begin{column}{.5\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Zooey2}
+\end{column}
+\end{columns}
+        \end{verbatim}
+      \end{tiny}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{columns}
+        \begin{column}{.5\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{Zooey1}
+        \end{column}
+        \begin{column}{.5\textwidth}
+          \centering
+          \includegraphics[width=\textwidth]{Zooey2}
+        \end{column}
+      \end{columns}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% Use the \againframe command to “continue” frames that you previously started
+%% somewhere, but where certain details have been suppressed.
+%% You can use the \againframe command at a much later point,
+%% for example only in the appendix to show additional slides there.
+%% In beamer, you can use the \framezoom command to create links to
+%% zoomed out parts of a complicated slide.
+%% Behind the whole text area (which contains the zoomed area) a big
+%% invisible “Back” button is put. Thus clicking anywhere on the text
+%% area will jump back to the original (unzoomed) picture.
+%% If you do not wish to have the frame title shown on a zoomed slide,
+%% you can add an overlay specification to the \frametitle command that
+%% simply suppresses the title for the slide. Also, by using the plain option,
+%% you can have the zoomed slide fill the whole page.
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}<1>[label=Zooms,fragile, plain]
+\frametitle<1>{Zooming Figure}
+  \begin{columns}[T]
+    \begin{column}{.3\textwidth}
+%      \framezoom<1><2>[border](0cm,0cm)(0.5cm,0.5cm)
+      \framezoom<1><2>[border](1cm,1cm)(0.5cm,0.5cm)
+%      \framezoom<1><4>[border](2cm,2cm)(0.5cm,0.5cm)
+%     \pgfimage[height=6cm]{tiger}
+      \includegraphics[height=4cm]{Zooey} % is working, too!
+    \end{column}
+
+    \begin{column}{.7\textwidth}
+      Grammar:
+      \begin{itemize}
+        \item Figures can be zoomed using
+        \item \alert{\path{\framezoom<button overlay><zoomed overlay>[options](x,y)(w,h)}}
+        \item options: border.
+        \item (x,y): Upper left coordinate point.\\
+        They are measures relative to the place where the first normal text of a frame would go.
+        Thus, the location $(0pt,0pt)$ is at the beginning of the normal text (which excludes
+        the headline and also the frame title).
+        \item (w,h): Width and height for zooming.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[label=Wing_A,fragile]
+\frametitle{Zooming Figure}
+
+\begin{columns}[T]
+\begin{column}{.4\textwidth}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Wingmirror_Geo}
+%   \caption*{{\normalsize Model Geometry}}
+  \end{figure}
+
+  \alert{Comments:}
+
+  \begin{itemize}
+
+    \item[*] Agreement is favorable across the spectrum
+
+    \item[*] overestimate the sound pressure at probe 2
+
+  \end{itemize}
+
+\end{column}
+\begin{column}{.6\textwidth}
+
+  \begin{figure}
+    \raggedleft
+    \hyperlink{Wing_B}{\includegraphics[width=0.9\textwidth]{NLAS_Validation}}
+%   \caption*{{\normalsize Model Geometry}}
+  \end{figure}
+
+\end{column}
+\end{columns}
+
+\note{
+  \tiny
+  \begin{itemize}
+    \item Prediction of flow-induced noise requires a description of all relevant scales of motion
+    \item Transmission of the resulting acoustic waves requires a method with minimal dispersion and dissipation
+    \item NLAS uses a reconstruction procedure to generate noise sources from the given set of statistics
+    \item NLAS allows the propagation of the pressure disturbances to be simulated using a high-resolution pre-conditioned solver.
+    \item NLAS is able to predict both broadband and tonal noise
+    \item NLAS sub-grid treatment is less diffusive than traditional LES and provides a mechanism to extract acoustic signals from unresolvable eddy foot-prints (sub-grid scale).
+    \item LES suits for the noise sources arise from an inherently strong, that numerical and modeled diffusion has little opportunity to overwhelm these disturbances
+    \item situations in which the fluid instability is weak and/or arising from scales significantly shorter that the acoustic wavelengths, capturing the relevant noise sources requires greater accuracy and enhanced modeling of unresolved scales.
+  \end{itemize}
+}
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Splitting a Frame into Multiple Columns}
+%% The main environment for creating columns is called columns.
+%% Inside this environment, you can either place several column environments,
+%% each of which creates a new column, or use the \column command to
+%% create new columns.
+%\begin{columns}[options]
+%  \begin{column}[pos]{width}
+%     ... contents ...
+%  \end{column}
+%  \begin{column}[pos]{width}
+%    ... contents ...
+%  \end{column}
+%\end{columns}
+%% Options:
+%% - b will cause the bottom lines of the columns to be vertically aligned.
+%% - c will cause the columns to be centered vertically relative to each other.
+%%   Default, unless the global option t is used.
+%% - onlytextwidth is the same as totalwidth=\textwidth.
+%% - t will cause the first lines of the columns to be aligned.
+%% - T is similar to the t option, but T aligns the tops of the first lines
+%%   while t aligns the so-called baselines of the first lines.
+%% - totalwidth=<width> will cause the columns to occupy not the whole
+%%   page width, but only <width>, all told.
+%% The parameter \linewidth contains the line length inside a list (or derived)
+%% environment and it may change in a nested list (while \hsize, \textwidth and
+%% \columnwidth don't change). When we have to specify a length depending on current
+%% conditions, we have to use the correct parameter. For example, the width of a figure
+%% should be specified in terms of \columnwidth in a figure environment and of \textwidth
+%% in a figure* environment; however this is done rarely when it's known that
+%% the document will be typeset in one column format. The same should be for a tabular* or
+%% tabularx environment.
+%% Instead, when we need something centered with respect to a line in a list,
+%% we should use \linewidth
+%% However, in Beamer's column environment:
+%% Remark: Within each column, the variable \textwidth is redefined to refer to
+%% that column's width. For instance, in the sample shown above, the width of
+%% the image is set to 0.7\textwidth which means 0.7 times the width of the column that
+%% contains the image.
+%% Remark: I find it easier giving widths of columns in terms of fractions of \textwidth.
+%% If you wish, however, you may specify absolute widths, such as: \begin{column}{30mm}.
+%% For this, you should know that the overall size of a Beamer slide is 128mm x 96mm.
+\subsection{Column Environment}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[label=ForSkipZoom]
+\frametitle{Splitting a slide into Columns}
+
+The line you are reading goes all the way across the slide.
+From the left margin to the right margin.  Now we are going
+to split the slide into two columns.
+
+\bigskip
+
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    Here is the first column.  We put an itemized list in it.
+    \begin{itemize}
+      \item This is an item
+      \item This is another item
+      \item Yet another item
+    \end{itemize}
+  \end{column}
+
+  \begin{column}{0.3\textwidth}
+    Here is the second column.  We will put a picture in it.
+    \centerline{\includegraphics[width=0.7\textwidth]{Zooey}}
+  \end{column}
+\end{columns}
+
+\bigskip
+
+The line you are reading goes all the way across the slide.
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}
+\frametitle{More More More Columns}
+
+\vfill
+
+\begin{columns}
+  \begin{column}{.33\textwidth}
+    Left column\\
+    blah blah blah blah\\
+  \end{column}
+
+  \begin{column}{.33\textwidth}
+    Middle column\\
+    blah blah blah blah\\
+  \end{column}
+
+  \begin{column}{.33\textwidth}
+    Right column\\
+    blah blah blah blah\\
+  \end{column}
+\end{columns}
+
+\vfill
+
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    Bottom Left column\\
+    blah blah blah blah\\
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    Bottom Right column\\
+    blah blah blah blah\\
+  \end{column}
+\end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Columns with Graphics \textrm{I}}
+
+\begin{columns}[T]
+  \column{5cm}
+    Two\\lines.
+    \begin{tiny}
+      \begin{verbatim}
+\begin{columns}[T]
+\column{5cm}
+  Two\\lines.
+\column[c]{5cm}
+  \includegraphics[width=4cm]{Zooey}
+\end{columns}
+      \end{verbatim}
+    \end{tiny}
+  \column[c]{5cm}
+    \centerline{\includegraphics[width=4cm]{Zooey}}
+\end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Columns with Graphics \textrm{II}}
+
+\begin{columns}[c]
+  \column{5cm}
+    Two\\lines.
+    \begin{tiny}
+      \begin{verbatim}
+\begin{columns}[c]
+\column{5cm}
+  Two\\lines.
+\column[c]{5cm}
+  \includegraphics[width=4cm]{Zooey}
+\end{columns}
+      \end{verbatim}
+    \end{tiny}
+  \column[c]{5cm}
+    \centerline{\includegraphics[width=4cm]{Zooey}}
+\end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[plain]
+\frametitle{Columns with Graphics \textrm{III}}
+
+\begin{columns}
+  \begin{column}[T]{.5\textwidth}
+    \centerline{\includegraphics[width=.75\textwidth]{Zooey1}}
+  \end{column}
+
+  \begin{column}[T]{.5\textwidth}
+    \centerline{\includegraphics[width=.75\textwidth]{Zooey2}}
+  \end{column}
+\end{columns}
+
+\vfill
+
+\begin{columns}
+  \begin{column}[T]{.5\textwidth}
+    \centerline{\includegraphics[width=.75\textwidth]{Zooey3}}
+  \end{column}
+
+  \begin{column}[T]{.5\textwidth}
+    \centerline{\includegraphics[width=.75\textwidth]{Zooey4}}
+  \end{column}
+\end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% You may sometimes wish to have some part of a frame change dynamically from
+%% slide to slide. On each slide of the frame, something different should be shown
+%% inside this area. You could achieve the effect of dynamically changing text
+%% by giving a list of \only commands like this:
+%% \only<1>{Initial text.}
+%% \only<2>{Replaced by this on second slide.}
+%% \only<3>{Replaced again by this on third slide.}
+%% The trouble with this approach is that it may lead to slight, but annoying differences
+%% in the heights of the lines, which may cause the whole frame to “wobble” from
+%% slide to slide. This problem becomes much more severe if the replacement text is
+%% several lines long. To solve this problem, you can use two environments: overlayarea and
+%% overprint. The first is more flexible, but less user-friendly.
+%% \begin{overlayarea}{<area width>}{<area height>}
+%%   <environment contents>
+%% \end{overlayarea}
+%% Everything within the environment will be placed in a rectangular area of
+%% the specified size. The area will have the same size on all slides of a frame,
+%% regardless of its actual contents.
+%% Example:
+%% \begin{overlayarea}{\textwidth}{3cm}
+%% \only<1>{Some text for the first slide.\\Possibly several lines long.}
+%% \only<2>{Replacement on the second slide.}
+%% \end{overlayarea}
+\begin{frame}
+\frametitle{Columns with Graphics \textrm{IV}}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+        \item<1-> \emph{Important text}
+        \item<2-> Very important process
+           \begin{itemize}
+             \item<3-> Steps one and two
+             \item<5-> Step with no image
+           \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.4\textwidth}
+        \begin{overlayarea}{\textwidth}{4cm}
+%% Here can not use \centerline, adjust the horizonal position of pictures by set
+%% different \begin{column}{.4\textwidth}.
+%          \includegraphics<2-4>[scale=0.2]{Zooey1}
+          \includegraphics<2>[width=\textwidth]{Zooey1}
+          \includegraphics<3>[width=\textwidth]{Zooey2}
+          \includegraphics<4>[width=\textwidth]{Zooey3}
+        \end{overlayarea}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Minipage Environment}
+%% Minipage is an environment providing a paragraph box which is a
+%% complete miniversion of a page. It can contain its own footnotes,
+%% paragraphs, arrays, tabulars, and other environments. It cannot,
+%% however, contain floats or \marginpar commands, but it can appear
+%% inside figure or table environments.
+%% The syntax is the following:
+%% \begin{minipage}[<pos>][<height>][<inner-pos>]{<width>}
+%%   <text>
+%% \end{minipage}
+%% where
+%% <pos> controlls the vertical positioning of the box with respect to
+%% the text baseline (valid values: c, t, or b).
+%% <height> determines the height of the box.
+%% <width> determines the width of the box.
+%% <inner-pos> determines the position of <text> within the box.
+%% The four special length parameters \width, \height, \depth, and
+%% \totalheight (= \height + \depth) specify the natural size of <text>.
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}
+\frametitle{Test Minipage \textrm{I}}
+
+  \begin{columns}
+    \column{.5\textwidth}
+      \centerline{\includegraphics[scale = 0.2]{Zooey1}}
+    \column{.5\textwidth}
+      \begin{minipage}[c][.6\textheight][c]{\linewidth}
+        \begin{itemize}
+          \item Item 1
+          \item Item 2
+        \end{itemize}
+      \end{minipage}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}
+\frametitle{Test Minipage \textrm{II}}
+
+  \begin{columns}
+    \column{.5\textwidth}
+      \centerline{\includegraphics[scale = 0.2]{Zooey1}}
+    \column{.5\textwidth}
+      \begin{minipage}[c][.6\textheight][c]{\linewidth}
+        \begin{itemize}
+          \item<1-> Another item 1
+          \item<2-> Another item 2
+          \item<3-> This list is longer
+          \item<4-> Than the previous one.
+        \end{itemize}
+      \end{minipage}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Tables}
+%% The 'l c r' on the first line indicates that the first, second,
+%% and third columns should be left-justified, centered,
+%% and right-justified, respectively.
+%% double backslashes (\\) tell LaTeX where the end of a row is
+%% the ampersand (&) marks the dividing line between columns.
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{A Simple One}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{scriptsize}
+\begin{verbatim}
+\begin{center}
+  \begin{tabular}{ l | c || r | }
+    \hline
+    1 & 2 & 3 \\
+    \hline
+    4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{verbatim}
+      \end{scriptsize}
+    \end{column}
+
+    \begin{column}{.4\textwidth}
+      \begin{center}
+        \begin{tabular}{ l | c || r | }
+          \hline
+          1 & 2 & 3 \\
+          \hline
+          4 & 5 & 6 \\
+          7 & 8 & 9 \\
+         \hline
+        \end{tabular}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{More Complicated}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{scriptsize}
+\begin{verbatim}
+\begin{center}
+  \begin{tabular}{|r|l|}
+    \hline
+    7C0 & hexadecimal \\
+    3700 & octal \\ \cline{2-2}
+    11111000000 & binary \\
+    \hline \hline
+    1984 & decimal \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{verbatim}
+      \end{scriptsize}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \begin{center}
+        \begin{tabular}{|r|l|}
+          \hline
+          7C0 & hexadecimal \\
+          3700 & octal \\ \cline{2-2}
+          11111000000 & binary \\
+          \hline \hline
+          1984 & decimal \\
+          \hline
+        \end{tabular}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Even More Complicated}
+
+  \begin{columns}
+    \begin{column}{\textwidth}
+      \begin{scriptsize}
+\begin{verbatim}
+\begin{center}
+  \begin{tabular}{ l | c || r | }
+    \hline
+    \onslide<2-6,8>{1} & \onslide<3-6>{2} & \onslide<4-6,9>{hello} \\
+    \hline
+    \onslide<5-6>{4} & \onslide<5-6,8,9>{5} & \onslide<5-6>{6} \\
+    \onslide<6,9>{7} & \onslide<6>{8} & \onslide<6,8>{9} \\
+    \hline
+  \end{tabular}
+\end{center}
+\end{verbatim}
+      \end{scriptsize}
+    \end{column}
+  \end{columns}
+
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+
+    \end{column}
+
+    \begin{column}{.4\textwidth}
+      \begin{center}
+        \begin{tabular}{ l | c || r | }
+          \hline
+          \onslide<2-6,8>{1} & \onslide<3-6>{2} & \onslide<4-6,9>{hello} \\
+          \hline
+          \onslide<5-6>{4} & \onslide<5-6,8,9>{5} & \onslide<5-6>{6} \\
+          \onslide<6,9>{7} & \onslide<6>{8} & \onslide<6,8>{9} \\
+          \hline
+        \end{tabular}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Creating Overlays}
+%% The General Concept of Overlay Specifications
+%% The idea is to add overlay specifications to certain commands.
+%% These specifications are always given in pointed brackets and
+%% follow the command “as soon as possible,” though in certain cases
+%% beamer also allows overlay specification to be given a little later.
+%% In the simplest case, the specification contains just a number.
+%% A command with an overlay specification following it will
+%% only have “effect” on the slide(s) mentioned in the specification.
+%% Consider the following example.
+%% \begin{frame}
+%% \textbf{This line is bold on all three slides.}
+%% \textbf<2>{This line is bold only on the second slide.}
+%% \textbf<3>{This line is bold only on the third slide.}
+%% \end{frame}
+%% For the command \textbf, the overlay specification causes the text
+%% to be set in boldface only on the specified slides.
+%% On all other slides, the text is set in a normal font.
+%% For a second example, consider the following frame:
+%% \begin{frame}
+%% \only<1>{This line is inserted only on slide 1.}
+%% \only<2>{This line is inserted only on slide 2.}
+%% \end{frame}
+%% The command \only, which is introduced by beamer, normally simply
+%% inserts its parameter into the current frame.
+%% However, if an overlay specification is present, it “throws away”
+%% its parameter on slides that are not mentioned.
+%% The syntax of (basic) overlay specifications is the following:
+%% They are comma-separated lists of slides and ranges.
+%% Ranges are specified like this: 2-5, which means slide two through to five.
+%% The start or the end of a range can be omitted.
+%% For example, 3- means “slides three, four, five, and so on” and
+%% -5 means the same as 1-5. A complicated example is -3,6-8,10,12-15,
+%% which selects the slides 1, 2, 3, 6, 7, 8, 10, 12, 13, 14, and 15.
+\subsection{Stepwise Viewing}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%% The pause command offers an easy, but not very flexible way of creating frames that
+%% are uncovered piecewise. If you say \pause somewhere in a frame, only the text on the
+%% frame up to the \pause command is shown on the first slide. On the second slide,
+%% everything is shown up to the second \pause, and so forth.
+
+\begin{frame}[fragile]
+\frametitle{Pause for Stepwise Viewing}
+
+  \begin{columns}
+    \begin{column}[T]{2in} % begin left column
+      \begin{tiny}
+        \begin{verbatim}
+\begin{itemize}
+\item
+  Shown from first slide on.
+\pause
+\item
+  Shown from second slide on.
+  \begin{itemize}
+  \item
+    Shown from second slide on.
+  \pause
+  \item
+    Shown from third slide on.
+  \end{itemize}
+\item
+  Shown from third slide on.
+\pause
+\item
+  Shown from fourth slide on.
+\end{itemize}
+Shown from fourth slide on.
+\begin{itemize}
+\onslide
+\item
+  Shown from first slide on.
+\pause
+\item
+  Shown from fifth slide on.
+\end{itemize}
+        \end{verbatim}
+      \end{tiny}
+    \end{column} % end left column
+
+    \begin{column}[T]{2.2in} % begin right column
+      \begin{itemize}
+        \item
+          Shown from first slide on.
+        \pause
+        \item
+          Shown from second slide on.
+          \begin{itemize}
+            \item
+              Shown from second slide on.
+            \pause
+            \item
+              Shown from third slide on.
+          \end{itemize}
+        \item
+          Shown from third slide on.
+        \pause
+        \item
+          Shown from fourth slide on.
+      \end{itemize}
+
+      Shown from fourth slide on.
+
+      \begin{itemize}
+        \onslide
+        \item
+          Shown from first slide on.
+        \pause
+        \item
+          Shown from fifth slide on.
+      \end{itemize}
+        \pause
+        Note that pause does not know \textcolor{Violet}{overlay counters}.
+    \end{column} % end right column
+  \end{columns}
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Pause: Table Example}%
+
+  \begin{itemize}
+    \item Row increment in a table:\pause \\
+      \medskip
+      \rowcolors[]{1}{blue!20}{blue!10}
+      \begin{tabular}{l!{\vrule}cccc}
+        Class & A & B & C & D \\\hline
+        X & 1 & 2 & 3 & 4 \pause \\
+        Y & 3 & 4 & 5 & 6 \pause \\
+        Z & 5 & 6 & 7 & 8
+      \end{tabular}
+    \vfill
+    \item Source code:
+      \begin{footnotesize}
+        \begin{verbatim}
+\rowcolors[]{1}{blue!20}{blue!10}
+\begin{tabular}{l!{\vrule}cccc}
+  Class & A & B & C & D \\\hline
+  X & 1 & 2 & 3 & 4 \pause \\
+  Y & 3 & 4 & 5 & 6 \pause \\
+  Z & 5 & 6 & 7 & 8
+\end{tabular}
+        \end{verbatim}
+      \end{footnotesize}
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Onslide for Stepwise Viewing}
+
+  \begin{itemize}
+    \item \textcolor{Violet}{\path{\onslide<n-> stuff}} shows stuff on the given slides.%\pause
+    \item Example: Column increment in a table:\\%\pause \\
+      \rowcolors[]{1}{blue!20}{blue!10}
+      \begin{tabular}{l!{\vrule}c<{\onslide<2->}c<{\onslide<3->} %
+        c<{\onslide<4->}c<{\onslide}c}
+        Class & A & B & C & D \\
+        X & 1 & 2 & 3 & 4 \\
+        Y & 3 & 4 & 5 & 6 \\
+        Z & 5 & 6 & 7 & 8
+      \end{tabular}
+    \item Source code:\\
+      \begin{footnotesize}
+        \begin{verbatim}
+\rowcolors[]{1}{blue!20}{blue!10}
+\begin{tabular}{l!{\vrule}c<{\onslide<2->}c<{\onslide<3->}%
+    c<{\onslide<4->}c<{\onslide}c}
+    Class & A & B & C & D \\
+    X & 1 & 2 & 3 & 4 \\
+    Y & 3 & 4 & 5 & 6 \\
+    Z & 5 & 6 & 7 & 8
+\end{tabular}
+        \end{verbatim}
+      \end{footnotesize}
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Item for Step Viewing \rm{I}}%
+
+  {\color{Violet}\path{item<n->}} for incremental overlays with overlay counters.
+
+\rule{\linewidth}{0.5mm}
+
+  \begin{tabular}{p{.5\textwidth} p{.4\textwidth}}
+    \begin{verbatim}
+\begin{itemize}
+  \item<2-> Every thing
+  \item<3-> that has
+  \item<4-> beginning
+  \item<5-> and end.
+\end{itemize}
+    \end{verbatim}
+    &
+    \begin{itemize}
+      \item<2-> Every thing
+      \item<3-> that has
+      \item<4-> beginning
+      \item<5-> has end.
+    \end{itemize}
+  \end{tabular}
+
+\rule{\linewidth}{0.5mm}
+
+  \onslide<6->{\path{\item<n1-n2>} for fine control of overlays.}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Item for Step Viewing \rm{II}}%
+
+  {\color{Violet}\path{<+->}} for incremental overlays automaticlly.
+
+\rule{\linewidth}{0.5mm}
+
+  \begin{tabular}{p{.5\textwidth} p{.4\textwidth}}
+    \begin{verbatim}
+\begin{itemize}[<+->]
+  \item Every thing
+  \item that has
+  \item beginning
+  \item and end.
+\end{itemize}
+    \end{verbatim}
+    &
+    \begin{itemize}[<+->]
+      \item Every thing
+      \item that has
+      \item beginning
+      \item has end.
+    \end{itemize}
+  \end{tabular}
+
+\rule{\linewidth}{0.5mm}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Replace}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Replace}%
+
+  \begin{itemize}
+    \item Successive \alert{\path{\only<n>{...}}}.\\
+      {\scriptsize \path{(Ex)\only<1>{Only1}\only<2>{Only2}\only<3>{Only3}} $\Rightarrow$  \only<1>{Only1}\only<2>{Only2}\only<3>{Only3}}
+    \item \alert{\path{\uncover<n>{...}}} shows at given n.\\
+      {\scriptsize \path{(Ex)\uncover<5>{I am 5}} $\Rightarrow$ \uncover<5>{I am 5}}
+    \item \alert{\path{\invisible<n>{...}}} hides at given n.\\
+      {\scriptsize \path{(Ex)\invisible<8>{Invisible at 8}} $\Rightarrow$ \invisible<8>{Invisible at 8}}
+    \item \alert{\path{\alt<n>{at n}{not at n}}} for two alternatives.\\
+      {\scriptsize \path{(Ex)\alt<11>{I am 11}{I am not 11}} $\Rightarrow$ \alt<11>{I am 11}{I am not 11}}
+    \item \alert{\path{\temporal<n>{before}{at n}{after}}} for three alternatives.\\
+      {\scriptsize \path{(Ex)\temporal<14>{I am 13}{I am 14}{I am 15}} $\Rightarrow$ \temporal<14>{I am 13}{I am 14}{I am 15}}
+  \end{itemize}
+
+  \bigskip
+
+  \begin{center}
+    Slide\only<1>{1}\only<2>{2}\only<3>{3}\only<4>{4}\only<5>{5}\only<6>{6}\only<7>{7}\only<8>{8}%
+    \only<9>{9}\only<10>{10}\only<11>{11}\only<12>{12}\only<13>{13}\only<14>{14}\only<15>{15}
+  \end{center}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{More Replaces}%
+
+  In case if subtle differences in the heights of replacements, it may lead to slight, but annoying differences in the heights of the lines, which may cause the whole frame to "wobble" from slide to slide. To solve this problem, {\color{red} overlayarea} and {\color{red}overprint} environment can be used.
+
+  \bigskip
+
+  Example:
+
+  \bigskip
+
+  \begin{overlayarea}{\textwidth}{1.5cm}
+    \only<1>{Some text for the first slide.\\Possibly several lines long.}
+    \only<2>{Replacement on the second slide.}
+  \end{overlayarea}
+
+  \medskip
+
+  \begin{footnotesize}
+    \begin{verbatim}
+\begin{overlayarea}{\textwidth}{3cm}
+  \only<1>{Some text for the first slide.\\
+           Possibly several lines long.}
+  \only<2>{Replacement on the second slide.}
+\end{overlayarea}
+    \end{verbatim}
+  \end{footnotesize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Environments with Overlay Specifications}%
+
+\begin{columns}
+  \begin{column}{.3\textwidth}
+    \begin{theorem}<1->
+      Exists infinite set.
+    \end{theorem}
+
+    \begin{proof}<3->
+      Axiom of infinity.
+    \end{proof}
+
+    \begin{example}<2->
+      Natural numbers.
+    \end{example}
+  \end{column}
+  \begin{column}{.6\textwidth}
+    \begin{scriptsize}
+      \begin{verbatim}
+\begin{theorem}<1->
+  Exists infinite set.
+\end{theorem}
+\begin{proof}<3->
+  Axiom of infinity.
+\end{proof}
+\begin{example}<2->
+  Natural numbers.
+\end{example}
+      \end{verbatim}
+    \end{scriptsize}
+    \begin{alertblock}<4->{Note}
+      \Tiny
+      Various overlay counters: 'n', 'n-', '-n', 'n1-n2', '+-'.
+      \begin{verbatim}
+\textbf, \textit, \textsl,
+\textrm, \textsf, and
+\color also understand overlays.
+      \end{verbatim}
+    \end{alertblock}
+  \end{column}
+\end{columns}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{Highlighting}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Simple Highlighting}%
+
+  {\color{Violet}\path{\item<+-| alert@+>}} for automatic highlighting.
+
+\rule{\linewidth}{0.5mm}
+
+  \begin{columns}
+    \footnotesize
+    \begin{column}{.5\textwidth}
+      \begin{verbatim}
+\begin{itemize}
+  \item <+-| alert@+> Every thing
+  \item <+-| alert@+> that has
+  \item <+-| alert@+> beginning
+  \item <+-| alert@+> has end.
+\end{itemize}
+      \end{verbatim}
+    \end{column}
+
+    \begin{column}{.3\textwidth}
+      \begin{itemize}
+        \item <+-| alert@+> Every thing
+        \item <+-| alert@+> that has
+        \item <+-| alert@+> beginning
+        \item <+-| alert@+> has end.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\rule{\linewidth}{0.5mm}
+
+  \begin{itemize}
+    \item You can also use {\color{Violet}\path{\begin{itemize}[<+-|alert@+>]}} instead of individual '{\color{Violet}\path{\item<+-|alert@+>}}'.
+    \item You can use {\color{Violet}structure} instead of {\color{Violet}alert}.
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Alert for Highlighting}%
+
+  {\color{Violet}\path{\item<n->\alert<m>{stuff}}} is better than the previous automatic one.
+
+\rule{\linewidth}{0.5mm}
+
+  \begin{columns}
+    \footnotesize
+    \begin{column}{.5\textwidth}
+      \begin{verbatim}
+\begin{itemize}
+  \item<1->\alert<2> {Every thing}
+  \item<1->\alert<3> {that has}
+  \item<1->\alert<4> {beginning}
+  \item<1->\alert<5> {has end.}
+\end{itemize}
+      \end{verbatim}
+    \end{column}
+
+    \begin{column}{.3\textwidth}
+      \begin{itemize}
+        \item<1->\alert<2> {Every thing}
+        \item<1->\alert<3> {that has}
+        \item<1->\alert<4> {beginning}
+        \item<1->\alert<5> {has end.}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\rule{\linewidth}{0.5mm}
+
+  Note that {\color{Violet}\path{\item<1->\alert<2>}} is same to {\color{Violet}\path{\item<1-| alert@2>}}.
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Temporal for Highlighting}%
+
+  \begin{itemize}
+    \item {\color{Violet}\path{\temporal<n>{before}{on}{after}}} for highlighting
+    \item Ready?\\
+      \begin{itemize}
+        \hilite<2> \item Everything
+        \hilite<3> \item that has
+        \hilite<4> \item beginning
+        \hilite<5> \item has end.
+      \end{itemize}
+    \item Source code:\\
+      \begin{scriptsize}
+        \begin{verbatim}
+\def\hilite<#1>{%
+\temporal<#1>{\color{gray}}{\color{blue}}%
+{\color{blue!25}}}
+...
+\begin{itemize}
+  \hilite<3> \item Everything
+  \hilite<4> \item that has
+  \hilite<5> \item beginning
+  \hilite<6> \item has end.
+\end{itemize}
+        \end{verbatim}
+      \end{scriptsize}
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Hyperlinks and Buttons}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Hyperlinks and Buttons}%
+
+  \begin{itemize}
+    \small
+    \item Beamer provides additional options for hyperlinks and buttons.
+    \item {\color{Violet}\path{\hyperlink{targetname}{\beamergotobutton{text}}}} to create link.
+    \item {\color{Violet}\path{\hypertarget{targetname}{text}}} to create target.
+    \item To make a button "clickable" you must place it in a command like \path{\hyperlink}.
+    \item Some useful buttons are \path{\beamerbutton}, \path{\beamergotobutton}, \path{\beamerreturnbutton} and \path{\beamerskipbutton}.
+    \item To go to the title page, click \hfill \hyperlinkpresentationstart{\beamerbutton{\color{red}Title Page}}
+    \item To go to the end of presentation, click \hfill \hyperlinkpresentationend{\beamerbutton{\color{red}End Page}}
+    \item To go to the appendix, click \hfill \hyperlinkappendixstart{\beamerbutton{\color{red}Appendix}}
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Beamer Skip Button}%
+
+  The symbol drawn for this button is usually a double right arrow. Use this button if pressing it will skip over a well-defined part of your talk.
+
+  \begin{theorem}
+    I got a theorem.
+  \end{theorem}
+
+%% \begin{overprint}[<area width>]
+%%    <environment contents>
+%% \end{overprint}
+%% The <area width> defaults to the text width. Inside the environment,
+%% use \onslide commands to specify different things that should be shown
+%% for this environment on different slides. Everything within the environment
+%% will be placed in a rectangular area of the specified width. The height and
+%% depth of the area are chosen large enough to accommodate the largest
+%% contents of the area.
+
+  \begin{overprint}
+    \onslide<1>
+    \hfill\hyperlinkframestartnext{\beamerskipbutton{Skip proof}}
+    \onslide<2>
+    \begin{proof}
+      I am trying...
+    \end{proof}
+  \end{overprint}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}<1>[fragile,label=mytheorem]
+\frametitle{Beamer Goto and Return Button}%
+
+  \begin{theorem}
+    I got a theorem...
+  \end{theorem}
+  \begin{overprint}
+    \onslide<1>
+      \hfill\hyperlink{mytheorem<2>}{\beamergotobutton{Go to proof details}}
+    \onslide<2>
+    \begin{proof}
+      This is the proof details attached in Appendix.
+    \end{proof}
+    \hfill\hyperlink{mytheorem<1>}{\beamerreturnbutton{Return}}
+  \end{overprint}
+%% need to use \againframe<2>{mytheorem} in Appendix part. i.e., after \appendix.
+\end{frame}
+%%%%% ------------------------------------------------------------------------------
+\section{Animations}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}[fragile]
+\frametitle{Animations Created by Showing Slides in Rapid Succession}%
+
+  \begin{itemize}
+    \scriptsize
+    \item To facilitate the creation of animations using this feature, the following commands can be used: {\color{Violet}\path{\animate}} and {\color{Violet}\path{\animatevalue}}.
+    \item \path{\animate<overlay specification>} \\ The slides specified by \emph{overlay specification} will be shown as quickly as possible.
+    \item \path{\animatevalue<start slide-end slide>{name}{start value}{end value}}\\The \emph{name} must be the name of a \emph{counter} or a \emph{dimension}. It will be varied between two values. For the slides in the specified range, the counter or dimension is set to an interpolated value that depends on the current slide number. On slides before the \emph{start slide} the counter or dimension is set to \emph{start value}, on the slides after the \emph{end slide} it is set to \emph{end value}.
+    \item Use with caution as animation needs lots of slides.
+    \item For Acrobat Adobe Reader, this works only in full-screen mode.
+  \end{itemize}
+
+\end{frame}
+%%%%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{frame}
+\frametitle{A Five Slide Animation with \path{\animate<n1-n2>}}
+
+  \animate<2-4>
+
+  The first slide is shown normally. When the second slide is shown (presumably after pressing a forward key), the second, third, and fourth slides "flash by" At the end, the content of the fifth slide is shown.
+
+  \bigskip
+
+  \begin{itemize}[<+->]
+    \item Everything
+    \item that has
+    \item beginning
+    \item has end.
+    \item That's right!
+  \end{itemize}
+
+\end{frame}
