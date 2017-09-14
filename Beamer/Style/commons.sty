@@ -140,8 +140,9 @@ macros package]
 %%
 %%% >>> Citations and References
 %%
-\RequirePackage[backend=biber,style=authoryear,firstinits=true,maxcitenames=99]{biblatex}
+\RequirePackage[style=authoryear]{biblatex}
 \addbibresource{ref.bib}
+\renewcommand*{\bibfont}{\tiny}
 %%
 %% >>> Tkiz
 %%
