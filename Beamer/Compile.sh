@@ -1,68 +1,78 @@
-#* *************************************************************************
-#*                        bash scripts for compile latex
-#* *************************************************************************
+#---------------------------------------------------------------------------#
+#-                      LaTeX Automated Compiler                           -#
+#---------------------------------------------------------------------------#
 #! /bin/bash
-#* *************************************************************************
-#*                        pre information
-#* *************************************************************************
-if [[ "$#" == "1" ]];then
-    File_Name=`echo *.tex`
-elif [[ "$#" == "2" ]];then
-    File_Name="$2"
+#---------------------------------------------------------------------------#
+#->> Preprocessing
+#---------------------------------------------------------------------------#
+#-
+#-> Get source filename
+#-
+if [[ "$#" == "1" ]]; then
+    FileName=`echo *.tex`
+elif [[ "$#" == "2" ]]; then
+    FileName="$2"
 else
-    echo "*************************************************************************"
-    echo "Usage: "$0"  <x|xa|p|pa>  <file name>"
-    echo "Flag <x:xelatex>, <p:pdflatex>, <a:auto compilation>"
-    echo "if compile failed, use \"X\" to terminate the terminal..."
-    echo "*************************************************************************"
+    echo "---------------------------------------------------------------------------"
+    echo "Usage: "$0"  <x|xa|xb|p|pa|pb>  <filename>"
+    echo "Parameters: <x:xelatex>, <p:pdflatex>, <a:auto bibtex>, <b:auto biblatex>"
+    echo "Compile failed: \"X\" to terminate the terminal..."
+    echo "---------------------------------------------------------------------------"
     exit
 fi
-#* *************************************************************************
-#*                      get the file name to compile
-#* *************************************************************************
-File_Name=${File_Name/.tex}
-#* *************************************************************************
-#*                        get the compiler
-#* *************************************************************************
-if [[ $1 == 'p' || $1 == 'pa' ]];then
-    CompileName="pdflatex"
-elif [[ $1 == 'x' || $1 == 'xa' ]];then
-    CompileName="xelatex"
+FileName=${FileName/.tex}
+#-
+#-> Get tex compiler
+#-
+if [[ $1 == *'p'* ]]; then
+    TexCompiler="pdflatex"
 else
-    echo "*************************************************************************"
-    echo "wrong compiler parameter, use \"pdflatex\" as current compiler"
-    CompileName="pdflatex"
-    echo "*************************************************************************"
+    TexCompiler="xelatex"
 fi
-#* *************************************************************************
-#*                        temperary directory
-#* *************************************************************************
-#* set the temp directory name
+#-
+#-> Get bib compiler
+#-
+if [[ $1 == *'a'* ]]; then
+    BibCompiler="bibtex"
+elif [[ $1 == *'b'* ]]; then
+    BibCompiler="biber"
+else
+    BibCompiler=""
+fi
+#-
+#-> Set the temp directory for storing compiled files
+#-
 Tmp="Tmp"
-if [[ ! -d $Tmp ]];then
+if [[ ! -d $Tmp ]]; then
     mkdir -p $Tmp
 fi
-#* *************************************************************************
-#*                include subdirs to compile path
-#* *************************************************************************
+#-
+#-> Set LaTeX environmental variables to include subdirs into search path
+#-
 export TEXINPUTS=".//:$TEXINPUTS"
 export BIBINPUTS=".//:$BIBINPUTS"
 export BSTINPUTS=".//:$BSTINPUTS"
-#* *************************************************************************
-#*                compile target file
-#* *************************************************************************
-$CompileName -output-directory=$Tmp $File_Name || exit
-#* *************************************************************************
-#*               if use bibtex, need following commands 
-#* *************************************************************************
-if [[ $1 == 'pa' || $1 == 'xa' ]];then
-biber ./$Tmp/$File_Name
-$CompileName -output-directory=$Tmp $File_Name || exit
-$CompileName -output-directory=$Tmp $File_Name || exit
+#---------------------------------------------------------------------------#
+#->> Compiling
+#---------------------------------------------------------------------------#
+#-
+#-> Build textual content
+#-
+$TexCompiler -output-directory=$Tmp $FileName || exit
+#-
+#-> Build links and references
+#-
+if [[ -n $BibCompiler ]]; then
+    $BibCompiler ./$Tmp/$FileName
+    $TexCompiler -output-directory=$Tmp $FileName || exit
+    $TexCompiler -output-directory=$Tmp $FileName || exit
 fi
-#* *************************************************************************
-#*                open the generated pdf file
-#* *************************************************************************
+#---------------------------------------------------------------------------#
+#->> Postprocessing
+#---------------------------------------------------------------------------#
+#-
+#-> Set PDF viewer
+#-
 System_Name=`uname`
 if [[ $System_Name == "Linux" ]]; then
     PDFviewer="xdg-open"
@@ -71,7 +81,11 @@ elif [[ $System_Name == "Darwin" ]]; then
 else
     PDFviewer="open"
 fi
-$PDFviewer ./$Tmp/"$File_Name".pdf || exit
-echo "*************************************************************************"
-echo "use $CompileName compile "$File_Name".tex finished!"
-echo "*************************************************************************"
+#-
+#-> Open the compiled file
+#-
+$PDFviewer ./$Tmp/"$FileName".pdf || exit
+echo "---------------------------------------------------------------------------"
+echo "$TexCompiler $BibCompiler "$FileName".tex finished..."
+echo "---------------------------------------------------------------------------"
+
