@@ -1,7 +1,16 @@
+#!/bin/bash
+set -e
+
 #---------------------------------------------------------------------------#
-#-                      LaTeX Automated Compiler                           -#
+#-                       LaTeX Automated Compiler                          -#
+#-                          <By Huangrui Mo>                               -#
+#- Copyright (C) Huangrui Mo <huangrui.mo@gmail.com>                       -#
+#- This is free software: you can redistribute it and/or modify it         -#
+#- under the terms of the GNU General Public License as published by       -#
+#- the Free Software Foundation, either version 3 of the License, or       -#
+#- (at your option) any later version.                                     -#
 #---------------------------------------------------------------------------#
-#! /bin/bash
+
 #---------------------------------------------------------------------------#
 #->> Preprocessing
 #---------------------------------------------------------------------------#
@@ -15,7 +24,7 @@ elif [[ "$#" == "2" ]]; then
 else
     echo "---------------------------------------------------------------------------"
     echo "Usage: "$0"  <x|xa|xb|p|pa|pb>  <filename>"
-    echo "Parameters: <x:xelatex>, <p:pdflatex>, <a:auto bibtex>, <b:auto biblatex>"
+    echo "Parameters: <x:xelatex>, <p:pdflatex>, <a:auto bibtex>, <b:auto biber>"
     echo "Compile failed: \"X\" to terminate the terminal..."
     echo "---------------------------------------------------------------------------"
     exit
@@ -40,31 +49,37 @@ else
     BibCompiler=""
 fi
 #-
-#-> Set the temp directory for storing compiled files
+#-> Set compilation out directory resembling the inclusion hierarchy
 #-
 Tmp="Tmp"
-if [[ ! -d $Tmp ]]; then
-    mkdir -p $Tmp
+Tex="Tex"
+if [[ ! -d $Tmp/$Tex ]]; then
+    mkdir -p $Tmp/$Tex
 fi
 #-
-#-> Set LaTeX environmental variables to include subdirs into search path
+#-> Set LaTeX environmental variables to add subdirs into search path
 #-
-export TEXINPUTS=".//:$TEXINPUTS"
-export BIBINPUTS=".//:$BIBINPUTS"
-export BSTINPUTS=".//:$BSTINPUTS"
+export TEXINPUTS=".//:$TEXINPUTS" # paths to locate .tex 
+export BIBINPUTS=".//:$BIBINPUTS" # paths to locate .bib
+export BSTINPUTS=".//:$BSTINPUTS" # paths to locate .bst
 #---------------------------------------------------------------------------#
 #->> Compiling
 #---------------------------------------------------------------------------#
 #-
-#-> Build textual content
+#-> Build textual content and auxiliary files
 #-
 $TexCompiler -output-directory=$Tmp $FileName || exit
 #-
-#-> Build links and references
+#-> Build references and links
 #-
 if [[ -n $BibCompiler ]]; then
-    $BibCompiler ./$Tmp/$FileName
+    #- fix the inclusion path for hierarchical auxiliary files
+    sed -i "s|\@input{|\@input{$Tmp/|g" $Tmp/"$FileName".aux
+    #- extract and format bibliography database via auxiliary files
+    $BibCompiler $Tmp/$FileName
+    #- insert reference indicators into textual content
     $TexCompiler -output-directory=$Tmp $FileName || exit
+    #- refine citation references and links
     $TexCompiler -output-directory=$Tmp $FileName || exit
 fi
 #---------------------------------------------------------------------------#
